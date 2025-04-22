@@ -1,20 +1,24 @@
 const URL = 'https://api.jikan.moe/v4';
+const NUMBER = 60000;
 const imagePlace = document.querySelector('.image-place')
 const generatorButton = document.querySelector('.generator-button')
 const imageSection = document.querySelector('.image-section');
 
 async function callApi(urlAPI) {
     try {
-        const randomNumber = randomImageGenerator()
+        const randomNumber = randomImageGenerator(NUMBER)
         const response = await fetch(`${urlAPI}/anime/${randomNumber}/full`)
         console.log(randomNumber)
 
         if(response.ok) {
             const data = await response.json();
             const objImg = data.data.images.webp.large_image_url;
+            const objTitle = data.data.title;
+            const objtSynopsis = data.data.synopsis || 'No Description Yet';
             hiddePreviousContainer();
-            getImage(objImg);
+            getImage(objImg, objTitle, objtSynopsis);
         } else {
+            loadingImage()
             setTimeout(() => {
                 callApi(URL);
             }, '3000')
@@ -25,35 +29,28 @@ async function callApi(urlAPI) {
     }
 }
 
-function randomImageGenerator() {
-    const NUMBER = 60000;
-    const randomNumber = Math.floor(Math.random() * NUMBER);
+function randomImageGenerator(totalList) {  
+    const randomNumber = Math.floor(Math.random() * totalList);
     return randomNumber
 }
 
 function loadingImage() {
-    const div = document.createElement('div');
-    const span = document.createElement('span');
-    const loadingIcon = document.createElement('img');
-    span.textContent = 'Loading Anime...';
-    loadingIcon.src = `./assets/images/270-ring-with-bg.svg`;
-
-    div.append(span, loadingIcon);
-    div.classList.add('loading-image', 'image-section__basic');
-
-    imageSection.append(div);
+    imageSection.innerHTML = `
+    <div class="loading-image image-section__basic">
+        <span>Loading Anime...</span>
+        <img src="./assets/images/270-ring-with-bg.svg" alt="loading icon" >
+    <div>`;
 }
 
-function getImage(imgSrc) {
-    const div = document.createElement('div');
-    const img = document.createElement('img');
-
-    div.classList.add('anime-img-ok', 'image-section__basic');
-    img.alt = 'Random Anime Image';
-    img.src = imgSrc;
-    div.append(img)
-
-    imageSection.append(div);
+function getImage(imgSrc, objTitle, objtSynopsis) {
+    imageSection.innerHTML = `
+    <div class="anime-img-ok image-section__basic">
+        <div class="anime-img-ok__info-container">
+            <h2>${objTitle}</h2>
+            <p class="info-container__synopsis">${objtSynopsis}</p>
+        </div>
+        <img class="anime-image" src="${imgSrc}" alt="Random anime image">
+    </div>`;
 }
 
 function hiddePreviousContainer() {
