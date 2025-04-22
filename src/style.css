@@ -108,6 +108,8 @@ footer {
         display: flex;
         justify-content: center;
         align-items: center;
+        flex-direction: column;
+        align-items: center;
 
         & span {
             opacity: 0.7;
@@ -115,6 +117,24 @@ footer {
 
         & span a {
             color: var(--almost-red);
+        }
+
+        & .footer-section__github-icon {
+            a {
+                text-decoration: none;
+                opacity: 0.7;
+                color: #fff;
+
+                &:hover {
+                    color: var(--almost-red);
+                    text-decoration: underline;
+                    cursor: pointer;
+                }
+            }
+
+            & img {
+                width: 20px;
+            }
         }
     }
 }
