@@ -37,20 +37,21 @@ main {
     align-items: center;
 
     & .main-container {
+        margin-top: 3rem;
         width: inherit;
-        max-width: 800px;
-        height: 400px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+        max-width: 1200px;
+        height: fit-content;
+        display: grid;
+        grid-template-columns: repeat(4, 20%);
+        justify-content: center;
         gap: 1.5rem;
         padding: 1rem;
-
     }
 
     & .image-section {
         width: inherit;
         height: inherit;
+        grid-area: 1 / 1 / span 1 / span 3;
 
         & .image-section__basic {
             display: flex;
@@ -70,12 +71,14 @@ main {
         }
 
         & .loading-image img {
-            width: 50px;
-            height: 50px;
+            width: 40px;
+            height: 40px;
         }
     }
 
     & .button-section .generator-button {
+        grid-area: 1 / 3 / span 1 / span 4;
+        width: 100%;
         padding: 1rem 2rem;
         font-size: 0.9rem;
         font-weight: bold;
@@ -142,4 +145,8 @@ footer {
         width: 50%;
         height: inherit;
     }
+}
+
+.loading-icon {
+    color: var(--deep-purple);
 }
