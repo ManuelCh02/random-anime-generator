@@ -23,3 +23,6 @@ You can do it by the route to index.html or open a PORT on your LOCALHOST (I lik
 
 ## Contribuiting
 Feel free to contribute. I will really appreciate every feedback you can give to me.
+
+##
+Thank you so much Jikan (https://jikan.moe/) for providing this API
