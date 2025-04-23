@@ -21,11 +21,13 @@ html, body {
 body {
     display: flex;
     flex-direction: column;
+    position: relative;
 }
 
 h1 {
     margin-top: 3rem;
     text-align: center;
+    z-index: 10;
 }
 
 main {
@@ -35,6 +37,7 @@ main {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    z-index: 10;
 
     & .main-container {
         margin-top: 3rem;
@@ -91,7 +94,6 @@ main {
         &:focus {
             box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.25);
             background-color: var(--deep-blue);
-            transform: scale(1.03);
         }
 
         &:hover {
@@ -102,6 +104,7 @@ main {
 
 footer {
     margin-top: 3rem;
+    z-index: 10;
 
     & .footer-section {
         padding: 1rem;
@@ -169,4 +172,29 @@ footer {
 
 .loading-icon {
     color: var(--deep-purple);
+}
+
+/* Blur Circles */
+.blur-circle {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(200px);
+    opacity: 0.3;
+    z-index: 0;
+}
+
+.circle-1 {
+    width: 400px;
+    height: 400px;
+    background-color: var(--almost-red);
+    top: 20%;
+    left: -200px;
+}
+
+.circle-2 {
+    width: 400px;
+    height: 400px;
+    background-color: var(--deep-blue);
+    top: 50%;
+    right: -200px;
 }
