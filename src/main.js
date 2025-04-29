@@ -3,12 +3,13 @@ const NUMBER = 60000;
 const imagePlace = document.querySelector('.image-place')
 const generatorButton = document.querySelector('.generator-button')
 const imageSection = document.querySelector('.image-section');
+const filterBtn = document.querySelector('.filter-button');
+const animeGenrerSelector = document.getElementById('anime-genres-select');
 
 async function callApi(urlAPI) {
     try {
         const randomNumber = randomImageGenerator(NUMBER)
         const response = await fetch(`${urlAPI}/anime/${randomNumber}/full`)
-        console.log(randomNumber)
 
         if(response.ok) {
             const data = await response.json();
@@ -26,6 +27,43 @@ async function callApi(urlAPI) {
         
     } catch(error) {
         console.error(error)
+    }
+}
+
+async function callApiWithQueryParams(urlAPI) {
+    try {
+        const response = await fetch(`${urlAPI}`);
+
+        if(response.ok) {
+            const data = await response.json();
+            let filterResult = []
+            for(let obj of data.data) {
+                filterResult.push({img: obj.images.webp.large_image_url, title: obj.title, synopsis: obj.synopsis});
+            }
+            loadContentParams(filterResult)
+        }
+    } catch(error) {
+        console.error(error)
+    }
+}
+
+const fillGenrerAnimesAPI = async (urlAPI) => {
+    try {
+        const response = await fetch(`${urlAPI}/genres/anime`);
+        console.log(response)
+
+        if(response.ok) {
+            const data = await response.json();
+            console.log(data)
+            const objData = data.data;
+            const hashGenrer = new Map();
+            for(let obj of objData) {
+                hashGenrer.set(`${obj.name}`, `${obj.mal_id}`);
+            }
+            return hashGenrer
+        }
+    } catch(error) {
+        console.error(error);
     }
 }
 
@@ -59,6 +97,37 @@ function hiddePreviousContainer() {
     previousElement.style.display = 'none';
 }
 
+
+// Load content with filter
+async function filterAnime() {
+    const animeFiltered = animeGenrerSelector.value;
+    const getGenrerId = await fillGenrerAnimesAPI(URL);
+    console.log(getGenrerId)
+    const APIurl = URL;
+    const queryParams = `${APIurl}/anime?genres=${getGenrerId.get(`${animeFiltered}`)}&limit=10`;
+    console.log(queryParams)
+    callApiWithQueryParams(queryParams);
+}
+
+function loadContentParams(filterResult) {
+    for(let i = 0; i < filterResult.length; i++) {
+        const div = document.createElement('div');
+        div.classList.add('anime-img-ok', 'image-section__basic');
+        div.innerHTML = `
+        <div class="anime-img-ok__info-container">
+            <h2>${filterResult[i].title}</h2>
+            <p class="info-container__synopsis">${filterResult[i].synopsis}</p>
+        </div>
+        <img class="anime-image" src="${filterResult[i].img}" alt="Random anime image">`;
+        imageSection.appendChild(div);
+    }
+}
+
+// Events
 generatorButton.addEventListener('click', () => {
     callApi(URL)
+});
+
+filterBtn.addEventListener('click', () => {
+   filterAnime();
 });

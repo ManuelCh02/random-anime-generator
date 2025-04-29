@@ -100,6 +100,11 @@ main {
             background: var(--deep-blue);
         }
     }
+
+    & .filter-button-container {
+        display: flex;
+        gap: 1rem;
+    }
 }
 
 footer {
