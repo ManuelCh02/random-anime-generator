@@ -40,7 +40,8 @@ async function callApiWithQueryParams(urlAPI) {
             for(let obj of data.data) {
                 filterResult.push({img: obj.images.webp.large_image_url, title: obj.title, synopsis: obj.synopsis});
             }
-            loadContentParams(filterResult)
+            loadContentParams(filterResult);
+            insertMoreResultsButton();
         }
     } catch(error) {
         console.error(error)
@@ -99,12 +100,12 @@ function hiddePreviousContainer() {
 
 
 // Load content with filter
-async function filterAnime() {
+async function filterAnime(page) {
     const animeFiltered = animeGenrerSelector.value;
     const getGenrerId = await fillGenrerAnimesAPI(URL);
     console.log(getGenrerId)
     const APIurl = URL;
-    const queryParams = `${APIurl}/anime?genres=${getGenrerId.get(`${animeFiltered}`)}&limit=10`;
+    const queryParams = `${APIurl}/anime?genres=${getGenrerId.get(`${animeFiltered}`)}&page=${page || 1}&limit=10`;
     console.log(queryParams)
     callApiWithQueryParams(queryParams);
 }
@@ -123,6 +124,19 @@ function loadContentParams(filterResult) {
     }
 }
 
+function insertMoreResultsButton() {
+    const button = document.createElement('button');
+    button.classList.add('load-more-content-btn');
+    button.textContent = `Load More Results`;
+    imageSection.appendChild(button);
+}
+
+let counter;
+function loadNewPageContent() {
+    counter === undefined ? counter = 2 : counter++;
+    filterAnime(counter);
+}
+
 // Events
 generatorButton.addEventListener('click', () => {
     callApi(URL)
@@ -131,3 +145,9 @@ generatorButton.addEventListener('click', () => {
 filterBtn.addEventListener('click', () => {
    filterAnime();
 });
+
+imageSection.addEventListener('click', (event) => {
+    if(event.target.className === 'load-more-content-btn') {
+        loadNewPageContent();
+    }
+})
