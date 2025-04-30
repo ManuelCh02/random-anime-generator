@@ -11,7 +11,6 @@ html, body {
 }
 
 :root {
-    font-size: 16px;
     --deep-blue: #00224D;
     --deep-purple: #5D0E41;
     --almost-red: #A0153E;
@@ -77,6 +76,12 @@ main {
             width: 40px;
             height: 40px;
         }
+    }
+
+    & .aside-buttons-section {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
     }
 
     & .button-section .generator-button {
@@ -147,8 +152,48 @@ footer {
     }
 }
 
-.hide-element {
-    display: none;
+.filter-button-container {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    text-align: center;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 8px;
+
+    & .anime-genres-select {
+        margin-top: 10px;
+        width: 100%;
+        border-radius: 8px;
+        padding: 0.5rem;
+        opacity: 0.7;
+        outline: none;
+        border: none;
+    }
+
+    & .filter-button {
+        width: 100%;
+        padding: 1rem 2rem;
+        font-size: 0.9rem;
+        font-weight: bold;
+        background: var(--deep-purple);
+        outline: none;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+
+    &:focus {
+        box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.25);
+        background-color: var(--deep-blue);
+    }
+
+    &:hover {
+        background: var(--deep-blue);
+    }
+    }
 }
 
 /* API call success response styles elements */
@@ -183,7 +228,7 @@ footer {
 .blur-circle {
     position: fixed;
     border-radius: 50%;
-    filter: blur(200px);
+    filter: blur(150px);
     opacity: 0.3;
     z-index: 0;
 }
@@ -201,5 +246,5 @@ footer {
     height: 400px;
     background-color: var(--deep-blue);
     top: 50%;
-    right: -200px;
+    right: -100px;
 }
