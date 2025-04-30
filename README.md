@@ -1,12 +1,12 @@
 # Random Anime Generator
-This is a Project where I'm doing some practice with API.
+This is a Project where I'm practing API REST funcionality.
 
 Have fun generating random animes (Maybe you could find your next favorite anime ╰(*°▽°*)╯).
 
-![App Screenshot](./src/assets/images/app-screenshot.png)
+![App Screenshot](./src/assets/images/webpage-2.png)
 
 ## Setup 🛠️
-This project is currently on beta. I'm working on being accesible for everyone. But if you're interested on it you can clone this and run on localHost:
+Still working on it. If you're interested, you can clone this repo:
 
 ### Clone this repository:
 ```bash
@@ -15,14 +15,14 @@ cd random-anime-generator
 ```
 
 ### Check the project
-You can do it by the route to index.html or open a PORT on your LOCALHOST (I like PORT 3000 btw ^_^)
+Once you've cloned this project, just open index.html file on your browser or utilize port forwarding or whatever you pro tech guys can do (PORT 3000 is my favorite btw ^_^)
 
 ## To-Do 🗒️
-* Publish this on web
-* Create filters
+* Publish the project on the internet
+* Make filters
 
 ## Contribuiting
 Feel free to contribute. I will really appreciate every feedback you can give to me.
 
 ##
-Thank you so much Jikan (https://jikan.moe/) for providing this API
+Thank you so much to Jikan (https://jikan.moe/) for providing this API.
